@@ -6,4 +6,6 @@ module Todo
   autoload :Application, 'todo/application'
   autoload :Models, 'todo/models'
   autoload :Services, 'todo/services'
+  autoload :Middlewares, 'todo/middlewares'
+  autoload :MyLogger, 'todo/my_logger'
 end

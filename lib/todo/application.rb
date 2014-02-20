@@ -5,12 +5,18 @@ module Todo
 
     set :root, File.realpath(File.join(File.dirname(__FILE__), '..', '..'))
     set :logging, true
-    set :dump_errors, true
+    set :dump_errors, false
+    set :raise_errors, true
+    set :show_exceptions, false
+    set :logger, MyLogger.new
 
     configure do
-      DataMapper::Logger.new($stdout, :debug)
-      DataMapper.setup(:default, "sqlite://#{File.join(Todo::Application.root, 'todos.db')}")
+      DataMapper::Logger.new(logger, :debug)
+      DataMapper.setup(:default, "sqlite://#{File.join(Todo::Application.root, 'db', 'todos.db')}")
     end
+
+    use Rack::CommonLogger, settings.logger
+    use Middlewares::ExceptionHandling
 
     get '/' do
       haml :index
@@ -30,7 +36,7 @@ module Todo
       end
     end
 
-    post '/api/sessions' do
+    post '/api/session' do
       content_type :json
 
       session = Services::SessionCreator.new(params[:user])
@@ -47,8 +53,36 @@ module Todo
         status 404
         { errors: session.errors.to_hash }.to_json
       end
-
     end
+
+    post '/api/session' do
+      content_type :json
+
+      session = Services::SessionCreator.new(params[:user])
+
+      if session.valid?
+        cookie_params = {
+          value: session.access_token,
+          httponly: true,
+          secure: true
+        }
+        response.set_cookie 'access_token', cookie_params
+
+      else
+        status 404
+        { errors: session.errors.to_hash }.to_json
+      end
+    end
+
+    delete '/api/session' do
+      content_type :json
+      session = Models::Session.first(access_token: request.cookies[:access_token])
+      if !session && session && !session.destroy
+        status 404
+        { errors: session.errors.to_hash }.to_json
+      end
+    end
+
 
   end
 end
