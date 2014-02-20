@@ -1,4 +1,3 @@
-
 module Todo
   module Models
     class User
@@ -7,6 +6,8 @@ module Todo
       property :id,         Serial
       property :email,      String
       property :password,   String
+
+      has 1, :session, 'Todo::Models::Session'
 
       validates_presence_of :email
       validates_format_of :email, as: :email_address
