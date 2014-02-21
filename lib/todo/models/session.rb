@@ -9,8 +9,14 @@ module Todo
 
       belongs_to :user, 'Todo::Models::User', key: true
 
+      validates_uniqueness_of :user
+
       before :create do |session|
         session.access_token = SecureRandom.uuid
+      end
+
+      def h_errors
+        { errors: self.errors.to_hash }
       end
 
     end

@@ -18,6 +18,11 @@ module Todo
       def to_json
         { id: self.id }.to_json
       end
+
+      def h_errors
+        { errors: self.errors.to_hash }
+      end
+
     end
 
   end

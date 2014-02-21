@@ -32,7 +32,7 @@ module Todo
 
       else
         status 404
-        { errors: user.errors.to_hash }.to_json
+        user.h_errors.to_json
       end
     end
 
@@ -51,7 +51,7 @@ module Todo
 
       else
         status 404
-        { errors: session.errors.to_hash }.to_json
+        session.h_errors.to_json
       end
     end
 
@@ -70,7 +70,7 @@ module Todo
 
       else
         status 404
-        { errors: session.errors.to_hash }.to_json
+        session.h_errors.to_json
       end
     end
 
@@ -79,7 +79,7 @@ module Todo
       session = Models::Session.first(access_token: request.cookies[:access_token])
       if !session && session && !session.destroy
         status 404
-        { errors: session.errors.to_hash }.to_json
+        session.h_errors.to_json
       end
     end
 

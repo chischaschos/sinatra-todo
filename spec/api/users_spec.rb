@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'Users API', api: true do
 
-  context 'when 200 response' do
-    it 'should success creating a user' do
+  context 'when creating users' do
+    it 'should create a user with email and password' do
       expect(Todo::Models::User.count).to eq 0
 
       params = { user: { email: 'test@test.com', password: '123test123' } }
@@ -16,10 +16,8 @@ describe 'Users API', api: true do
       expect(last_response.status).to eq 200
       expect(Todo::Models::User.count).to eq 1
     end
-  end
 
-  context 'when 404 response' do
-    it 'should fail because of empty password' do
+    it 'should fail if missing password' do
       expect(Todo::Models::User.count).to eq 0
 
       params = { user: { email: 'test@test.com' } }
@@ -30,5 +28,6 @@ describe 'Users API', api: true do
       expect(last_response.status).to eq 404
       expect(Todo::Models::User.count).to eq 0
     end
+
   end
 end
