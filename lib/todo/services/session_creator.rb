@@ -28,6 +28,8 @@ module Todo
       end
 
       def create_session
+        fail 'Session could not be destroyed' if @user.session && !@user.session.destroy
+
         @session = Models::Session.create user: @user
 
         if @session.saved?

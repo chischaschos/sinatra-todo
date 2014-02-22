@@ -9,24 +9,26 @@ describe Todo::Services::SessionCreator do
 
     it 'should create a session' do
       session_creator = Todo::Services::SessionCreator.new params
-      expect(session_creator.valid?).to be_true
+      expect(session_creator).to be_valid
       expect(session_creator.access_token).not_to be_nil
       expect(session_creator.h_errors[:errors]).to be_empty
     end
   end
 
   context 'when a session already exists' do
-    before do
+    let!(:previous_access_token) do
       Todo::Models::User.create(params)
       session_creator = Todo::Services::SessionCreator.new(params)
-      expect(session_creator.valid?).to be_true
+      expect(session_creator).to be_valid
+      session_creator.access_token
     end
 
-    it 'should not create a session' do
+    it 'should create a new session' do
       session_creator = Todo::Services::SessionCreator.new params
-      expect(session_creator.valid?).not_to be_true
-      expect(session_creator.access_token).to be_nil
-      expect(session_creator.h_errors[:errors]).not_to be_empty
+      expect(session_creator).to be_valid
+      expect(session_creator.access_token).not_to be_nil
+      expect(session_creator.access_token).not_to eq previous_access_token
+      expect(session_creator.h_errors[:errors]).to be_empty
     end
   end
 end

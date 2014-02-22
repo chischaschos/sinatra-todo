@@ -18,18 +18,20 @@ describe 'Sessions API', api: true do
     end
 
     context 'when a session already exists' do
-      before do
+      let!(:previous_access_token) do
         session_creator = Todo::Services::SessionCreator.new(params)
         expect(session_creator.valid?).to be_true
+        session_creator.access_token
       end
 
-      xit 'should delete older session and create a new one' do
+      it 'should delete older session and create a new one' do
         post '/api/session', { user: params }
 
         expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
-        expect(last_response.body).to have_json_path 'errors/user'
-        expect(last_response.status).to eq 404
+        expect(last_response.headers['Set-Cookie']).to match /access_token=#{user.session.access_token}/
+        expect(user.session.access_token).not_to eq previous_access_token
+        expect(last_response.body).to eq ''
+        expect(last_response.status).to eq 200
       end
     end
   end
