@@ -10,8 +10,8 @@ describe 'Sessions API', api: true do
       it 'should allow a client to create a user session' do
         post '/api/session', { user: params }
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to match /access_token=#{user.session.access_token}/
+        expect(last_response).to be_json
+        expect(last_response).to have_cookie 'access_token', user.session.access_token
         expect(last_response.body).to eq ''
         expect(last_response.status).to eq 200
       end
@@ -27,8 +27,8 @@ describe 'Sessions API', api: true do
       it 'should delete older session and create a new one' do
         post '/api/session', { user: params }
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to match /access_token=#{user.session.access_token}/
+        expect(last_response).to be_json
+        expect(last_response).to have_cookie 'access_token', user.session.access_token
         expect(user.session.access_token).not_to eq previous_access_token
         expect(last_response.body).to eq ''
         expect(last_response.status).to eq 200
@@ -47,8 +47,8 @@ describe 'Sessions API', api: true do
 
         delete "/api/session"
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         expect(last_response.body).to eq ''
         expect(last_response.status).to eq 200
       end

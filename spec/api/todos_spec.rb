@@ -28,11 +28,21 @@ describe 'Todos API', api: true do
     end
 
     context 'when passing an invalid access token' do
+
+      it 'should not allow retrieving a list of my items' do
+        get '/api/list_item'
+
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
+        expect(last_response.body).to have_json_path 'errors/default'
+        expect(last_response.status).to eq 501
+      end
+
       it 'should not allow to create' do
         post '/api/list_item', { list_item: list_item_params }
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         expect(last_response.body).to have_json_path 'errors/default'
         expect(last_response.status).to eq 501
       end
@@ -41,8 +51,8 @@ describe 'Todos API', api: true do
         edit_params = { list_item: { description: 'Buy wine bottles' } }
         put "/api/list_item/#{list_item.id}", edit_params
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         expect(last_response.body).to have_json_path 'errors/default'
         expect(last_response.status).to eq 501
       end
@@ -50,8 +60,8 @@ describe 'Todos API', api: true do
       it 'should not allow to destroy' do
         delete "/api/list_item/#{list_item.id}"
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         expect(last_response.body).to have_json_path 'errors/default'
         expect(last_response.status).to eq 501
       end
@@ -62,11 +72,22 @@ describe 'Todos API', api: true do
         set_cookie "access_token=#{access_token}"
       end
 
+      it 'should retrieve a list of my items' do
+        list_item
+
+        get '/api/list_item'
+
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
+        expect(last_response.body).to have_json_size(1).at_path '/'
+        expect(last_response.status).to eq 200
+      end
+
       it 'should create a list item' do
         post '/api/list_item', { list_item: list_item_params }
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         last_response.body.tap do |body|
           expect(body).to have_json_path 'id'
           expect(body).to have_json_path 'description'
@@ -81,8 +102,8 @@ describe 'Todos API', api: true do
         edit_params = { list_item: { description: 'Buy wine bottles' } }
         put "/api/list_item/#{list_item.id}", edit_params
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         last_response.body.tap do |body|
           expect(body).to have_json_path 'id'
           expect(body).to have_json_path 'description'
@@ -98,8 +119,8 @@ describe 'Todos API', api: true do
       it 'should destroy a list item owned by you' do
         delete "/api/list_item/#{list_item.id}"
 
-        expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'
-        expect(last_response.headers['Set-Cookie']).to be_nil
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
         expect(last_response.body).to eq ''
         expect(last_response.status).to eq 200
       end

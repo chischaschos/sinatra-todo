@@ -10,4 +10,5 @@ map '/assets' do
 end
 
 
-run Todo::Application
+use Todo::Api
+run Todo::Frontend
