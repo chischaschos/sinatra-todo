@@ -71,7 +71,17 @@ module Todo
     end
 
     get '/api/list_item', auth_required: true do
-      @session.user.list_items.to_json
+      scope = @session.user.list_items
+
+      if params[:sort_by]
+        if params[:ord]
+          scope.all(order: params[:sort_by].to_sym.send(params[:ord])).to_json
+        else
+          scope.all(order: params[:sort_by].to_sym.desc).to_json
+        end
+      else
+        scope.all.to_json
+      end
     end
 
     post '/api/list_item', auth_required: true do
