@@ -23,7 +23,7 @@ describe 'Sessions API', api: true do
         expect(session_creator.valid?).to be_true
       end
 
-      it 'should not allow a client to create a session' do
+      xit 'should delete older session and create a new one' do
         post '/api/session', { user: params }
 
         expect(last_response.headers['Content-Type']).to eq 'application/json;charset=utf-8'

@@ -8,6 +8,7 @@ module Todo
       property :password,   String
 
       has 1, :session, 'Todo::Models::Session'
+      has n, :list_items, 'Todo::Models::ListItem'
 
       validates_presence_of :email
       validates_format_of :email, as: :email_address

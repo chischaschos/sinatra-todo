@@ -76,13 +76,71 @@ module Todo
 
     delete '/api/session' do
       content_type :json
-      session = Models::Session.first(access_token: request.cookies[:access_token])
-      if !session && session && !session.destroy
+      session = Models::Session.first(access_token: request.cookies['access_token'])
+      if !session || session && !session.destroy
         status 404
         session.h_errors.to_json
       end
     end
 
+    post '/api/list_item' do
+      content_type :json
+      session = Models::Session.first(access_token: request.cookies['access_token'])
+
+      if session
+        list_item = session.user.list_items.create(params[:list_item])
+
+        if list_item.saved?
+          list_item.to_json
+        else
+          status 404
+          list_item.h_errors.to_json
+        end
+
+      else
+        status 501
+        { errors: { default: 'Invalid access token' } }.to_json
+      end
+    end
+
+    put '/api/list_item/:list_item_id' do |list_item_id|
+      content_type :json
+      session = Models::Session.first(access_token: request.cookies['access_token'])
+
+      if session
+        list_item = session.user.list_items.get(list_item_id)
+        list_item.attributes = list_item.attributes.merge(params[:list_item])
+
+        if list_item.save
+          list_item.to_json
+        else
+          status 404
+          list_item.h_errors.to_json
+        end
+
+      else
+        status 501
+        { errors: { default: 'Invalid access token' } }.to_json
+      end
+    end
+
+    delete '/api/list_item/:list_item_id' do |list_item_id|
+      content_type :json
+      session = Models::Session.first(access_token: request.cookies['access_token'])
+
+      if session
+        list_item = session.user.list_items.get(list_item_id)
+
+        if !list_item || !list_item.destroy
+          status 404
+          list_item.h_errors.to_json
+        end
+
+      else
+        status 501
+        { errors: { default: 'Invalid access token' } }.to_json
+      end
+    end
 
   end
 end
