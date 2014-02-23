@@ -14,7 +14,7 @@ module Todo
         if user
           create_session
         else
-          @h_errors.merge!({ default: 'email or password invalid' })
+          @h_errors[:errors].merge!({ default: 'email or password invalid' })
         end
 
         @h_errors[:errors].empty?
