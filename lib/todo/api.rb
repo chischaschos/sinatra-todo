@@ -1,5 +1,9 @@
+require 'rack/contrib'
+
 module Todo
   class Api < Application
+
+    use Rack::PostBodyContentTypeParser
 
     before '/api/*' do
       content_type :json
@@ -35,10 +39,10 @@ module Todo
       if session.valid?
         cookie_params = {
           value: session.access_token,
-          httponly: true,
-          secure: true
+          httponly: true
         }
         response.set_cookie 'access_token', cookie_params
+        {}.to_json
 
       else
         status 404

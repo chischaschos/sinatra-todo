@@ -12,7 +12,7 @@ describe 'Sessions API', api: true do
 
         expect(last_response).to be_json
         expect(last_response).to have_cookie 'access_token', user.session.access_token
-        expect(last_response.body).to eq ''
+        expect(last_response.body).to eq '{}' # so it gets recognized as a valid json response
         expect(last_response.status).to eq 200
       end
     end
@@ -30,7 +30,7 @@ describe 'Sessions API', api: true do
         expect(last_response).to be_json
         expect(last_response).to have_cookie 'access_token', user.session.access_token
         expect(user.session.access_token).not_to eq previous_access_token
-        expect(last_response.body).to eq ''
+        expect(last_response.body).to eq '{}' # so it gets recognized as a valid json response
         expect(last_response.status).to eq 200
       end
     end

@@ -1,0 +1,20 @@
+<form id='authentication_view'>
+  <fieldset>
+    <legend>
+      <%= title %> or <a href='' id='switch'><%= other_title %></a>
+    </legend>
+
+    <div id='messages' name='error'></div>
+
+    Email <input type='text' id='email' name='email'/>
+    <div id='email_error' name='error'></div>
+    <br>
+
+    Password <input type='password' id='password' name='password'/>
+    <div id='password_error' name='error'></div>
+    <br>
+
+    <input type='submit' value='<%= action %>' />
+
+  </fieldset>
+</form>
