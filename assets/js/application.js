@@ -10,6 +10,8 @@
 //= require_tree ./todo/routers
 //
 
+_.extend(Backbone.View.prototype, App.ErrorHandlingHelpers);
+
 $(document).ajaxError(function (event, xhr, options) {
   if (xhr.status == 501) {
     todoRouter.navigate('', { trigger: true, replace: true} );

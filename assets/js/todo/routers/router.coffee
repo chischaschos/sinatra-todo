@@ -1,13 +1,18 @@
 @App ||= {}
 class App.TodoRouter extends Backbone.Router
+  initialize: ->
+    @container = $('#container')
+
   routes:
-    ''        : 'index'
+    ''        : 'authenticate'
     'todos'   : 'todos'
 
-  index: ->
-    (new App.AuthenticationView el: $('#container')).render()
+  authenticate: ->
+    authenticationView = new App.AuthenticationView el: @container
+    authenticationView.render()
 
   todos: ->
-    todos = new App.TodosCollection
-    todos.fetch()
-    #(new App.TodosView el: $('#container')).render()
+    todosView = new App.TodosView
+      el: @container
+      collection: new App.TodosCollection
+    todosView.render()
