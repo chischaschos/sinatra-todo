@@ -5,6 +5,7 @@ gem 'data_mapper'
 gem 'dm-sqlite-adapter'
 gem 'ejs'
 gem 'haml'
+gem 'rack-cors', require: 'rack/cors'
 gem 'sinatra'
 gem 'sprockets'
 

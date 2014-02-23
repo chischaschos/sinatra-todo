@@ -9,6 +9,12 @@ map '/assets' do
   run environment
 end
 
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', :headers => :any, :methods => [:get, :post, :put, :delete]
+  end
+end
 
 use Todo::Api
 run Todo::Frontend

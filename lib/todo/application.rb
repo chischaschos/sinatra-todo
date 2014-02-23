@@ -17,6 +17,5 @@ module Todo
 
     use Rack::CommonLogger, settings.logger
     use Middlewares::ExceptionHandling
-
   end
 end
