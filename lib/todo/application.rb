@@ -12,7 +12,8 @@ module Todo
 
     configure do
       DataMapper::Logger.new(logger, :debug)
-      DataMapper.setup(:default, "sqlite://#{File.join(Todo::Application.root, 'db', 'todos.db')}")
+      file_name = File.join(Todo::Application.root, 'db', "todos-#{settings.environment}.db")
+      DataMapper.setup(:default, "sqlite://#{file_name}")
     end
 
     use Rack::CommonLogger, settings.logger

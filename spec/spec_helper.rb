@@ -1,5 +1,7 @@
 $LOAD_PATH << File.expand_path('lib')
 
+ENV['RACK_ENV'] = 'test'
+
 require 'todo'
 require 'database_cleaner'
 require 'json_spec'
