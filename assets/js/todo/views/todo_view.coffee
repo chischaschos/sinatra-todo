@@ -2,7 +2,7 @@
 class App.TodoView extends App.BaseView
   template: JST['todo/templates/todo']
 
-  tagName: 'ul'
+  tagName: 'tr'
 
   events:
     'click .todo-remove' : 'destroy'

@@ -15,6 +15,10 @@ class App.NewTodoView extends App.BaseView
       title:  'Creating new TODO item'
       action: 'Create'
 
+  helpers:
+    isChecked: (status) ->
+      status && "checked" || ""
+
   initialize: (options) ->
     @parent = options.parent
     if options.model
@@ -33,17 +37,20 @@ class App.NewTodoView extends App.BaseView
     attributes = _.extend(
       {},
       @model.toJSON().list_item,
-      @messages[@type]
+      @messages[@type],
+      @helpers
     )
     @$el.html(@template(attributes))
     @
 
   changed: (event) ->
-     changed = event.currentTarget
-     value = $(changed).val()
-     attributes = {}
-     attributes[changed.id] = value
-     @model.set(attributes)
+    changed = $(event.currentTarget)
+    attributes = {}
+    if changed.attr('type') is 'checkbox'
+      attributes[changed.attr('id')] = changed.prop('checked')
+    else
+      attributes[changed.attr('id')] = changed.val()
+    @model.set(attributes)
 
   submitForm: (event) ->
     event.preventDefault()

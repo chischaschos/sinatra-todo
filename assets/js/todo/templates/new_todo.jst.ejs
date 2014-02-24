@@ -15,7 +15,8 @@
     <div id='priority_error' name='error'></div>
     <br>
 
-    Completed <input type='checkbox' id='completed' name='completed' value="<%= completed %>"/>
+    Completed <input type='checkbox' id='completed' name='completed' <%=
+isChecked(completed) %>/>
     <div id='completed_error' name='error'></div>
     <br>
 

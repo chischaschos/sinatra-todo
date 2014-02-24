@@ -3,7 +3,13 @@ class App.TodosView extends App.BaseView
   template: JST['todo/templates/todos']
 
   events:
-    'click #add-todo'  : 'createTodo'
+    'click #add-todo'          : 'createTodo'
+    'click #order-by-priority' : 'orderByPriority'
+    'click #order-by-due_date' : 'orderByDueDate'
+
+  order:
+    sort_by: 'due_date'
+    ord:     'asc'
 
   initialize: (options) ->
     @collection = options.collection
@@ -18,7 +24,7 @@ class App.TodosView extends App.BaseView
     todoView = new App.TodoView
       model: model
       parent: @
-    @$el.find('#todos').append(todoView.render().el)
+    @$el.find('#todos tbody').append(todoView.render().el)
 
   createTodo: (event) ->
     event.preventDefault()
@@ -33,6 +39,21 @@ class App.TodosView extends App.BaseView
     @$el.find('#todos').html(newTodoView.render().el)
 
   render: ->
-    @collection.fetch(reset: true)
+    @collection.fetch
+      reset: true
+      data: @order
     @$el.html(@template())
     @
+
+  orderByDueDate: (event) =>
+    event.preventDefault()
+    @order.sort_by = 'due_date'
+    @order.ord = @order.ord is 'asc' && 'desc' || 'asc'
+    @render()
+
+  orderByPriority: (event) =>
+    event.preventDefault()
+    @order.sort_by = 'priority'
+    @order.ord = @order.ord is 'asc' && 'desc' || 'asc'
+    @render()
+
