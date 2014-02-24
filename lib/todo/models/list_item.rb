@@ -10,6 +10,13 @@ module Todo
       property :due_date,     Date
 
       belongs_to :user, 'Todo::Models::User'
+
+      validates_presence_of :description
+
+      def h_errors
+        { errors: self.errors.to_hash }
+      end
+
     end
   end
 end

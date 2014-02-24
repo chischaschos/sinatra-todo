@@ -89,7 +89,7 @@ module Todo
     end
 
     post '/api/list_item', auth_required: true do
-      list_item = @session.user.list_items.create(params[:list_item])
+      list_item = @session.user.list_items.create(params[:list_item] || {} )
 
       if list_item.saved?
         list_item.to_json

@@ -119,19 +119,46 @@ describe 'Todos API', api: true do
 
     end
 
-    it 'should create a list item' do
-      post '/api/list_item', { list_item: default_list_params }
+    context 'when creating list items' do
+      it 'should create return lits fields' do
+        post '/api/list_item', { list_item: default_list_params }
 
-      expect(last_response).to be_json
-      expect(last_response).not_to have_cookie 'access_token'
-      last_response.body.tap do |body|
-        expect(body).to have_json_path 'id'
-        expect(body).to have_json_path 'description'
-        expect(body).to have_json_path 'priority'
-        expect(body).to have_json_path 'due_date'
-        expect(body).to have_json_path 'completed'
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
+        last_response.body.tap do |body|
+          expect(body).to have_json_path 'id'
+          expect(body).to have_json_path 'description'
+          expect(body).to have_json_path 'priority'
+          expect(body).to have_json_path 'due_date'
+          expect(body).to have_json_path 'completed'
+        end
+        expect(last_response.status).to eq 200
       end
-      expect(last_response.status).to eq 200
+
+      it 'should create a list item with defaults' do
+        post '/api/list_item', { list_item: { description: 'some' } }
+
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
+        last_response.body.tap do |body|
+          expect(body).to have_json_path 'id'
+          expect(body).to have_json_path 'description'
+          expect(body).to have_json_path 'priority'
+          expect(body).to have_json_path 'due_date'
+          expect(body).to have_json_path 'completed'
+        end
+        expect(last_response.status).to eq 200
+      end
+
+      it 'should return errors' do
+        post '/api/list_item'
+
+        expect(last_response).to be_json
+        expect(last_response).not_to have_cookie 'access_token'
+        expect(last_response.body).to have_json_path('errors/description')
+        expect(last_response.status).to eq 404
+      end
+
     end
 
     it 'should edit a list item owned by you' do
