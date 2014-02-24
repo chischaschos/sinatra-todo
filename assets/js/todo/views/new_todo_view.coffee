@@ -7,13 +7,21 @@ class App.NewTodoView extends App.BaseView
     'submit #add-todo-form' : 'submitForm'
     'change input'          : 'changed'
 
+  messages:
+    edit:
+      title:  'Editing TODO item'
+      action: 'Save'
+    new:
+      title:  'Creating new TODO item'
+      action: 'Create'
+
   initialize: (options) ->
     @parent = options.parent
     if options.model
-      @edit = true
+      @type = 'edit'
       @model = options.model
     else
-      @edit = false
+      @type = 'new'
       @model = new App.TodoModel
 
   back: (event) ->
@@ -22,7 +30,12 @@ class App.NewTodoView extends App.BaseView
     @parent.render()
 
   render: ->
-    @$el.html(@template(@model.toJSON().list_item))
+    attributes = _.extend(
+      {},
+      @model.toJSON().list_item,
+      @messages[@type]
+    )
+    @$el.html(@template(attributes))
     @
 
   changed: (event) ->

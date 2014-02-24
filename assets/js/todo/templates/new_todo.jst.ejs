@@ -1,33 +1,29 @@
 <form id='add-todo-form'>
   <fieldset>
     <legend>
-      Add todo -
+      <%= title %>
       <a href='#' id='cancel-todo'>cancel</a>
     </legend>
 
     <div id='messages' name='error'></div>
 
-    Description <input type='text' id='description' name='description'
-value="<%= description %>"/>
+    Description <input type='text' id='description' name='description' value="<%= description %>"/>
     <div id='description_error' name='error'></div>
     <br>
 
-    Priority <input type='text' id='priority' name='priority' value="<%=
-priority %>"/>
+    Priority <input type='text' id='priority' name='priority' value="<%= priority %>"/>
     <div id='priority_error' name='error'></div>
     <br>
 
-    Completed <input type='checkbox' id='completed' name='completed' value="<%=
-completed %>"/>
+    Completed <input type='checkbox' id='completed' name='completed' value="<%= completed %>"/>
     <div id='completed_error' name='error'></div>
     <br>
 
-    Due Date <input type='text' id='due_date' name='due_date'
-value="<%= due_date %>"/>
+    Due Date <input type='text' id='due_date' name='due_date' value="<%= due_date %>"/>
     <div id='due_date_error' name='error'></div>
     <br>
 
-    <input type='submit' value='Create' />
+    <input type='submit' value='<%= action %>' />
 
   </fieldset>
 </form>
