@@ -3,16 +3,28 @@ class App.TodoRouter extends Backbone.Router
   initialize: ->
     @container = $('#container')
 
+  switchView: (view) ->
+    @currentView && @currentView.remove()
+    @currentView = view
+    @container.html(@currentView.render().el)
+
   routes:
-    ''        : 'authenticate'
-    'todos'   : 'todos'
+    ''         : 'authenticate'
+    'todos'    : 'todos'
+    'sign-out' : 'signOut'
 
   authenticate: ->
-    authenticationView = new App.AuthenticationView el: @container
-    authenticationView.render()
+    @switchView(new App.AuthenticationView)
 
   todos: ->
     todosView = new App.TodosView
-      el: @container
       collection: new App.TodosCollection
-    todosView.render()
+    @switchView(todosView)
+
+  signOut: ->
+    (new App.SessionModel id: 1).destroy
+      wait: true
+      error: (model, response, options) ->
+        todoRouter.navigate('', trigger: true, replace: true)
+      success: (model, response, options) ->
+        todoRouter.navigate('', trigger: true, replace: true)

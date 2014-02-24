@@ -1,6 +1,6 @@
 @App ||= {}
 
-@App.ErrorHandlingHelpers =
+class App.BaseView extends Backbone.View
   blockForm: ->
     @$el.find('input').attr('disabled', 'disabled')
 
@@ -22,11 +22,11 @@
 
     @unblockForm()
 
-   getErrors: (response) ->
-     if response.responseJSON && !_.isEmpty(response.responseJSON.errors)
-       response.responseJSON.errors
-     else
-       { default: 'Unknown error' }
+  getErrors: (response) ->
+    if response.responseJSON && !_.isEmpty(response.responseJSON.errors)
+      response.responseJSON.errors
+    else
+      { default: 'Unknown error' }
 
-   cleanErrors: ->
-     @$el.find("[name=error]").html('')
+  cleanErrors: ->
+    @$el.find("[name=error]").html('')

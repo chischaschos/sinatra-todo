@@ -2,6 +2,12 @@
 class App.TodoModel extends Backbone.Model
   urlRoot: '/api/list_item'
 
+  defaults:
+    description: ''
+    priority:    ''
+    completed:   ''
+    due_date:    ''
+
   set: (attributes, options) ->
     if attributes['completed'] == 'on'
       attributes['completed'] = true

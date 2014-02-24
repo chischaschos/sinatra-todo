@@ -1,5 +1,5 @@
 @App ||= {}
-class App.TodoView extends Backbone.View
+class App.TodoView extends App.BaseView
   template: JST['todo/templates/todo']
 
   tagName: 'ul'
@@ -13,7 +13,8 @@ class App.TodoView extends Backbone.View
     @parent = options.parent
 
   render: ->
-    @$el.html(@template(@model.toJSON()))
+    @$el.html(@template(@model.toJSON().list_item))
+    @
 
   destroy: (event) =>
     event.preventDefault()

@@ -1,5 +1,6 @@
 @App ||= {}
-class App.AuthenticationView extends Backbone.View
+
+class App.AuthenticationView extends App.BaseView
   template: JST['todo/templates/authentication']
 
   events:
@@ -20,10 +21,10 @@ class App.AuthenticationView extends Backbone.View
   initialize: ->
     @signInFlow = true
 
-  render: ->
+  render: (event) ->
+    event && event.preventDefault()
     @$el.html(@template(@selectMessages()))
-
-    return false
+    @
 
   selectMessages: ->
     @signInFlow = !@signInFlow

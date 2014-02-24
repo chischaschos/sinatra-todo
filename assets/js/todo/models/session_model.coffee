@@ -1,7 +1,11 @@
 @App ||= {}
 class App.SessionModel extends Backbone.Model
 
-  urlRoot: '/api/session'
+  initialize: ->
+    @id = 1
+
+  url: ->
+    '/api/session'
 
   toJSON: ->
     user: _.clone(@attributes)

@@ -1,5 +1,5 @@
 @App ||= {}
-class App.NewTodoView extends Backbone.View
+class App.NewTodoView extends App.BaseView
   template: JST['todo/templates/new_todo']
 
   events:
@@ -22,7 +22,8 @@ class App.NewTodoView extends Backbone.View
     @parent.render()
 
   render: ->
-    @$el.html(@template(@model.toJSON()))
+    @$el.html(@template(@model.toJSON().list_item))
+    @
 
   changed: (event) ->
      changed = event.currentTarget

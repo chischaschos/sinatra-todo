@@ -1,5 +1,5 @@
 @App ||= {}
-class App.TodosView extends Backbone.View
+class App.TodosView extends App.BaseView
   template: JST['todo/templates/todos']
 
   events:
@@ -18,24 +18,21 @@ class App.TodosView extends Backbone.View
     todoView = new App.TodoView
       model: model
       parent: @
-    @$el.find('#todos').append todoView.render()
+    @$el.find('#todos').append(todoView.render().el)
 
   createTodo: (event) ->
     event.preventDefault()
     newTodoView = new App.NewTodoView
-      el: @$el.find('#todos')
       parent: @
-    newTodoView.render()
+    @$el.find('#todos').html(newTodoView.render().el)
 
   editTodo: (model) ->
     newTodoView = new App.NewTodoView
-      el: @$el.find('#todos')
       parent: @
       model: model
-    newTodoView.render()
-
+    @$el.find('#todos').html(newTodoView.render().el)
 
   render: ->
-    @$el.html(@template())
     @collection.fetch(reset: true)
-
+    @$el.html(@template())
+    @
