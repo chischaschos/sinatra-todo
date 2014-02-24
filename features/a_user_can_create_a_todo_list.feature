@@ -13,6 +13,8 @@ Feature: A user can create a todo list
 
   Scenario: The user signs up
 
+  Scenario: The user signs out
+
   Scenario: The user creates a todo list
     Given I go to the home page
     And I create a list
@@ -23,3 +25,11 @@ Feature: A user can create a todo list
    Then I can delete the "buy milk item"
    And I can add the "buy beans" item
    And I can edit the "buy beer" to "buy a lot of beer"
+
+  Scenario: The API is accessed
+
+  Scenario: I can mark an item as completed
+
+  Scenario: I can sort items by due date
+
+  Scenario: I can sort items by priority
