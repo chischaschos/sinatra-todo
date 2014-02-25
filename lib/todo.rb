@@ -10,4 +10,5 @@ module Todo
   autoload :Services, 'todo/services'
   autoload :Middlewares, 'todo/middlewares'
   autoload :MyLogger, 'todo/my_logger'
+  autoload :Assets, 'todo/assets'
 end

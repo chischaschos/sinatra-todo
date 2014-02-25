@@ -5,6 +5,13 @@ module Todo
 
     use Rack::PostBodyContentTypeParser
 
+    use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete]
+      end
+    end
+
     before '/api/*' do
       content_type :json
     end

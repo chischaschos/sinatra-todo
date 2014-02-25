@@ -15,13 +15,14 @@ group 'development' do
 end
 
 group :development, :test do
-  gem 'capybara-webkit'
-  gem 'cucumber'
   gem 'debugger'
 end
 
 group :test do
+  gem 'capybara-webkit'
+  gem 'cucumber'
   gem 'database_cleaner'
   gem 'json_spec'
+  gem 'launchy'
   gem 'rspec'
 end
