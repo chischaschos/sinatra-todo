@@ -3,10 +3,11 @@
   %head
     %meta{content: "text/html; charset=utf-8", "http-equiv" => "content-type"}/
     %title Todo Manager
+    %link{rel: 'stylesheet', href: '/assets/application.css'}
     %script{src: '/assets/application.js'}
 
 %body
-  #container
+  #container.grid
 
   :javascript
     window.todoRouter = new App.TodoRouter()

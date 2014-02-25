@@ -3,6 +3,8 @@
 class App.AuthenticationView extends App.BaseView
   template: JST['todo/templates/authentication']
 
+  className: 'grid-item one_whole'
+
   events:
     'submit form'   : 'submitForm'
     'click #switch' : 'render'

@@ -2,6 +2,8 @@
 class App.TodosView extends App.BaseView
   template: JST['todo/templates/todos']
 
+  className: 'grid-item one_whole'
+
   events:
     'click #add-todo'          : 'createTodo'
     'click #order-by-priority' : 'orderByPriority'
