@@ -1,4 +1,5 @@
 //= require jquery-1.11.0
+//= require jquery.maskedinput.js
 //= require underscore
 //= require backbone
 //= require backbone

@@ -41,6 +41,8 @@ class App.NewTodoView extends App.BaseView
       @helpers
     )
     @$el.html(@template(attributes))
+    @$el.find("#priority").mask("9")
+    @$el.find("#due_date").mask("999-99-99")
     @
 
   changed: (event) ->
