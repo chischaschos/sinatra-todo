@@ -40,6 +40,10 @@ module Todo
       end
     end
 
+    get '/api/session', auth_required: true do
+      @session.to_json
+    end
+
     post '/api/session', auth_required: false do
       session = Services::SessionCreator.new(params[:user])
 
@@ -50,23 +54,6 @@ module Todo
         }
         response.set_cookie 'access_token', cookie_params
         {}.to_json
-
-      else
-        status 404
-        session.h_errors.to_json
-      end
-    end
-
-    post '/api/session', auth_required: false do
-      session = Services::SessionCreator.new(params[:user])
-
-      if session.valid?
-        cookie_params = {
-          value: session.access_token,
-          httponly: true,
-          secure: true
-        }
-        response.set_cookie 'access_token', cookie_params
 
       else
         status 404

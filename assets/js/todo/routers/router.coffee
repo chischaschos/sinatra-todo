@@ -12,6 +12,7 @@ class App.TodoRouter extends Backbone.Router
     ''         : 'authenticate'
     'todos'    : 'todos'
     'sign-out' : 'signOut'
+    'api-doc'   : 'apiDocumentation'
 
   authenticate: ->
     @switchView(new App.AuthenticationView)
@@ -28,3 +29,6 @@ class App.TodoRouter extends Backbone.Router
         todoRouter.navigate('', trigger: true, replace: true)
       success: (model, response, options) ->
         todoRouter.navigate('', trigger: true, replace: true)
+
+  apiDocumentation: ->
+    @switchView(new App.ApiDocumentationView)

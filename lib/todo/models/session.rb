@@ -15,6 +15,10 @@ module Todo
         session.access_token = SecureRandom.uuid
       end
 
+     def to_json
+       { access_token: self.access_token }.to_json
+     end
+
       def h_errors
         { errors: self.errors.to_hash }
       end

@@ -1,0 +1,50 @@
+<div id='menu' class='grid-item one_whole'>
+  <ul>
+    <li>
+      <a href='#todos' id='todos'>back</a>
+    </li>
+    <li>
+      <a href='#sign-out' id='sign-out'>sign out</a>
+    </li>
+  </ul>
+</div>
+
+<div class='grid-item one_whole'>
+  <ul>
+    <li>
+      <p>Create a user</p>
+      <code>
+        curl localhost:9393/api/users  -H'Content-Type: application/json' -d'{"user":{"email":"user@someqhere.com","password":"123test123"}}'
+      </code>
+    </li>
+
+    <li>
+      <p>Create a session</p>
+      <code>
+        curl localhost:9393/api/session  -H'Content-Type: application/json' -d'{"user":{"email":"paco1@paco.com","password":"123test123"}}'
+      </code>
+    </li>
+
+    <li>
+      <p>Create a session</p>
+      <code>
+        curl localhost:9393/api/session  -H'Content-Type: application/json' -d'{"user":{"email":"paco1@paco.com","password":"123test123"}}'
+      </code>
+    </li>
+
+    <li>
+      <p>Get your items</p>
+      <code>
+        curl localhost:9393/api/list_item -HCookie:access_token=<span name='access_token'></span>
+      </code>
+    </li>
+
+    <li>
+      <p>Create an item</p>
+      <code>
+        curl localhost:9393/api/list_item -H'Cookie:access_token=<span name='access_token'></span>' -H'Content-Type: application/json' -d'{"list_item":{"description":"buy some","priority":"4","completed":true,"due_date":"200-12-12"}}'
+      </code>
+    </li>
+  </ul>
+
+</div>

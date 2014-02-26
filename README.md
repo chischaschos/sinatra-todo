@@ -10,7 +10,6 @@
 
 ## Pending tasks
 - Unify logs format
-- Provide curl examples to interact with API
 - Verify passed access token authenticity per client
 - Review response status codes
 - Create a real password creation strategy

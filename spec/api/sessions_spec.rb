@@ -54,4 +54,23 @@ describe 'Sessions API', api: true do
       end
     end
   end
+
+  context 'when retrieving the existing session' do
+    let!(:session) { Todo::Services::SessionCreator.new(params) }
+
+    it 'should success' do
+      expect(session.valid?).to be_true
+
+      set_cookie "access_token=#{session.access_token}"
+
+      get "/api/session"
+
+      expect(last_response).to be_json
+      expect(last_response).not_to have_cookie 'access_token'
+      expect(last_response.body).to have_json_path 'access_token'
+      expect(last_response.status).to eq 200
+
+    end
+
+  end
 end
