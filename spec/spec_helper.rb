@@ -2,6 +2,9 @@ $LOAD_PATH << File.expand_path('lib')
 
 ENV['RACK_ENV'] = 'test'
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'todo'
 require 'database_cleaner'
 require 'json_spec'

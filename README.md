@@ -1,5 +1,7 @@
 ## A TODO list management web application and API
 
+[![Coverage Status](https://coveralls.io/repos/chischaschos/sinatra-todo/badge.png?branch=master)](https://coveralls.io/r/chischaschos/sinatra-todo?branch=master)
+
 - I can have my todo list displayed.
 - I can manipulate my list (add/remove/modify entries).
 - Assign priorities and due dates to the entries.

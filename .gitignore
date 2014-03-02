@@ -2,3 +2,4 @@ capybara*
 .bundle
 log/*
 db/*
+coverage

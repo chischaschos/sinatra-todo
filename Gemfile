@@ -7,6 +7,7 @@ gem 'data_mapper'
 gem 'dm-sqlite-adapter'
 gem 'ejs'
 gem 'haml'
+gem 'rake'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
 gem 'sinatra'
@@ -22,6 +23,7 @@ end
 
 group :test do
   gem 'capybara-webkit'
+  gem 'coveralls', require: false
   gem 'cucumber'
   gem 'database_cleaner'
   gem 'json_spec'
