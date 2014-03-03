@@ -1,11 +1,14 @@
+require 'bcrypt'
+
 module Todo
   module Models
     class User
       include DataMapper::Resource
+      include BCrypt
 
-      property :id,         Serial
-      property :email,      String
-      property :password,   String
+      property :id,             Serial
+      property :email,          String
+      property :password_hash,  String, length: 250
 
       has 1, :session, 'Todo::Models::Session'
       has n, :list_items, 'Todo::Models::ListItem'
@@ -13,8 +16,25 @@ module Todo
       validates_presence_of :email
       validates_format_of :email, as: :email_address
       validates_uniqueness_of :email
+      validates_with_block :password do
+        self.password_hash || [ false, 'Invalid Password' ]
+      end
 
-      validates_presence_of :password
+      def initialize(*args)
+        super(*args)
+        self.password = args.first && args.first[:password]
+      end
+
+      def password
+        @password ||= Password.new(password_hash)
+      end
+
+      def password=(new_password)
+        if valid_password?(new_password)
+          @password = Password.create(new_password)
+          self.password_hash = @password
+        end
+      end
 
       def to_json
         { id: self.id }.to_json
@@ -22,6 +42,12 @@ module Todo
 
       def h_errors
         { errors: self.errors.to_hash }
+      end
+
+      private
+
+      def valid_password?(new_password)
+        new_password && new_password.size > 5
       end
 
     end

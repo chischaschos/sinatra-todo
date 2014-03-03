@@ -23,8 +23,14 @@ module Todo
       private
 
       def user
-        @user ||= Todo::Models::User.first(email: @params[:email],
-                                           password: @params[:password])
+        unless @user
+          user = Todo::Models::User.first(email: @params[:email])
+          if user.password == @params[:password]
+            @user = user
+          end
+        end
+
+        @user
       end
 
       def create_session
