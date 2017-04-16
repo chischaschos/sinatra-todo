@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.3.1'
 
 gem 'coffee-script'
 gem 'data_mapper'
@@ -18,7 +18,7 @@ group 'development' do
 end
 
 group :development, :test do
-  gem 'debugger'
+  gem 'pry-byebug'
 end
 
 group :test do
