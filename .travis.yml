@@ -1,0 +1,16 @@
+language: ruby
+
+cache:
+  bundler: true
+
+rvm:
+- 2.3.1
+
+script: bundle exec rspec && bundle exec cucumber
+
+after_success:
+- bundle exec codeclimate-test-reporter
+
+addons:
+  code_climate:
+    repo_token: bb03c95a4dd49fd834f2e170e01673b9be914e0b370bfc56fec5bcdd95e4ca7d

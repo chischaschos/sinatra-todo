@@ -2,7 +2,6 @@ $LOAD_PATH << File.expand_path('lib')
 
 ENV['RACK_ENV'] = 'test'
 
-require 'debugger'
 require 'todo'
 require 'database_cleaner'
 require 'database_cleaner/cucumber'

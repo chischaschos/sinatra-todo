@@ -1,0 +1,30 @@
+AlignHash:
+  Enabled: false
+
+AlignParameters:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+DotPosition:
+  Enabled: false
+
+LineLength:
+  Max: 120
+
+MultilineBlockChain:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+SignalException:
+  Enabled: false
+
+StringLiterals:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+

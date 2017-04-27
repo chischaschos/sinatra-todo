@@ -23,10 +23,11 @@ end
 
 group :test do
   gem 'capybara-webkit'
-  gem 'coveralls', require: false
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'cucumber'
   gem 'database_cleaner'
   gem 'json_spec'
   gem 'launchy'
   gem 'rspec'
+  gem 'simplecov'
 end
