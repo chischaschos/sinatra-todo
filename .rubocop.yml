@@ -16,9 +16,6 @@ LineLength:
 MultilineBlockChain:
   Enabled: false
 
-Rails:
-  Enabled: true
-
 SignalException:
   Enabled: false
 

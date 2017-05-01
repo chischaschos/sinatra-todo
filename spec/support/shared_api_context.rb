@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rack/test'
 
 shared_context 'shared_api_context', api: true do
@@ -6,12 +7,11 @@ shared_context 'shared_api_context', api: true do
   def app
     Todo::Api
   end
-
 end
 
-RSpec::Matchers.define :be_json do |expected|
+RSpec::Matchers.define :be_json do |_expected|
   match do |actual|
-    actual.headers['Content-Type'] == 'application/json;charset=utf-8'
+    actual.headers['Content-Type'] == 'application/json'
   end
 end
 

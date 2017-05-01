@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'securerandom'
 
 module Todo
@@ -5,7 +6,7 @@ module Todo
     class Session
       include DataMapper::Resource
 
-      property :access_token,      String
+      property :access_token, String
 
       belongs_to :user, 'Todo::Models::User', key: true
 
@@ -15,14 +16,13 @@ module Todo
         session.access_token = SecureRandom.uuid
       end
 
-     def to_json
-       { access_token: self.access_token }.to_json
-     end
-
-      def h_errors
-        { errors: self.errors.to_hash }
+      def to_json
+        { access_token: access_token }.to_json
       end
 
+      def h_errors
+        { errors: errors.to_hash }
+      end
     end
   end
 end

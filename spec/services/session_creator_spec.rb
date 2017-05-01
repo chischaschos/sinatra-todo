@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Todo::Services::SessionCreator do
-
   let(:params) { { email: 'test@test.com', password: '123test123' } }
 
   let(:wrong_params) { { email: 'test@test.com', password: '123' } }

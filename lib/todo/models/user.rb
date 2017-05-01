@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'bcrypt'
 
 module Todo
@@ -17,7 +18,7 @@ module Todo
       validates_format_of :email, as: :email_address
       validates_uniqueness_of :email
       validates_with_block :password do
-        self.password_hash || [ false, 'Invalid Password' ]
+        password_hash || [false, 'Invalid Password']
       end
 
       def initialize(*args)
@@ -37,11 +38,11 @@ module Todo
       end
 
       def to_json
-        { id: self.id }.to_json
+        { id: id }.to_json
       end
 
       def h_errors
-        { errors: self.errors.to_hash }
+        { errors: errors.to_hash }
       end
 
       private
@@ -49,8 +50,6 @@ module Todo
       def valid_password?(new_password)
         new_password && new_password.size > 5
       end
-
     end
-
   end
 end

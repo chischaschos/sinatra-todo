@@ -1,4 +1,5 @@
-require 'spec_helper'
+# frozen_string_literal: true
+# frozen_string_literal: true require 'spec_helper'
 
 describe 'Todos API', api: true do
   let(:user_params) { { email: 'test@test.com', password: '123test123' } }
@@ -22,12 +23,11 @@ describe 'Todos API', api: true do
       description: 'Buy beer',
       priority: 1,
       completed: false,
-      due_date: '2014-01-01'
+      due_date: '2014-01-01',
     }
   end
 
   context 'when passing an invalid access token' do
-
     it 'should not allow retrieving a list of my items' do
       get '/api/list_item'
 
@@ -38,7 +38,7 @@ describe 'Todos API', api: true do
     end
 
     it 'should not allow to create' do
-      post '/api/list_item', { list_item: default_list_params }
+      post '/api/list_item', list_item: default_list_params
 
       expect(last_response).to be_json
       expect(last_response).not_to have_cookie 'access_token'
@@ -47,8 +47,7 @@ describe 'Todos API', api: true do
     end
 
     it 'should not allow to edit' do
-      edit_params = { list_item: { description: 'Buy wine bottles' } }
-      put "/api/list_item/#{list_item.id}", edit_params
+      put "/api/list_item/#{list_item.id}", list_item: { description: 'Buy wine bottles' }
 
       expect(last_response).to be_json
       expect(last_response).not_to have_cookie 'access_token'
@@ -96,32 +95,31 @@ describe 'Todos API', api: true do
       end
 
       it 'should retrieve them sorted by priority' do
-        get '/api/list_item', { sort_by: 'priority', ord: :desc }
+        get '/api/list_item', sort_by: 'priority', ord: :desc
 
         expect(last_response).to be_json
         expect(last_response).not_to have_cookie 'access_token'
         expect(JSON.parse(last_response.body).map { |e| e['priority'] }).to eq([
-          10, 8, 3
-        ])
+                                                                                 10, 8, 3
+                                                                               ])
         expect(last_response.status).to eq 200
       end
 
       it 'should retrieve them sorted by due_date' do
-        get '/api/list_item', { sort_by: 'due_date', ord: :asc }
+        get '/api/list_item', sort_by: 'due_date', ord: :asc
 
         expect(last_response).to be_json
         expect(last_response).not_to have_cookie 'access_token'
-        expect(JSON.parse(last_response.body).map { |e| e['description'] }).to eq([
-          'BB3', 'BB2', 'BB4'
-        ])
+        expect(JSON.parse(last_response.body).map { |e| e['description'] }).to eq(%w(
+                                                                                    BB3 BB2 BB4
+                                                                                  ))
         expect(last_response.status).to eq 200
       end
-
     end
 
     context 'when creating list items' do
       it 'should create return lits fields' do
-        post '/api/list_item', { list_item: default_list_params }
+        post '/api/list_item', list_item: default_list_params
 
         expect(last_response).to be_json
         expect(last_response).not_to have_cookie 'access_token'
@@ -136,7 +134,7 @@ describe 'Todos API', api: true do
       end
 
       it 'should create a list item with defaults' do
-        post '/api/list_item', { list_item: { description: 'some' } }
+        post '/api/list_item', list_item: { description: 'some' }
 
         expect(last_response).to be_json
         expect(last_response).not_to have_cookie 'access_token'
@@ -158,12 +156,10 @@ describe 'Todos API', api: true do
         expect(last_response.body).to have_json_path('errors/description')
         expect(last_response.status).to eq 404
       end
-
     end
 
     it 'should edit a list item owned by you' do
-      edit_params = { list_item: { description: 'Buy wine bottles' } }
-      put "/api/list_item/#{list_item.id}", edit_params
+      put "/api/list_item/#{list_item.id}", list_item: { description: 'Buy wine bottles' }
 
       expect(last_response).to be_json
       expect(last_response).not_to have_cookie 'access_token'

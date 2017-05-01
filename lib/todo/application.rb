@@ -1,8 +1,8 @@
+# frozen_string_literal: true
 require 'sinatra/base'
 
 module Todo
   class Application < Sinatra::Base
-
     set :root, File.realpath(File.join(File.dirname(__FILE__), '..', '..'))
     set :logging, true
     set :dump_errors, false

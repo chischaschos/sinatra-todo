@@ -1,14 +1,14 @@
+# frozen_string_literal: true
 require 'rack/contrib'
 
 module Todo
   class Api < Application
-
     use Rack::PostBodyContentTypeParser
 
     use Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete]
+        resource '*', headers: :any, methods: [:get, :post, :put, :delete]
       end
     end
 
@@ -50,7 +50,7 @@ module Todo
       if session.valid?
         cookie_params = {
           value: session.access_token,
-          httponly: true
+          httponly: true,
         }
         response.set_cookie 'access_token', cookie_params
         {}.to_json
@@ -83,7 +83,7 @@ module Todo
     end
 
     post '/api/list_item', auth_required: true do
-      list_item = @session.user.list_items.create(params[:list_item] || {} )
+      list_item = @session.user.list_items.create(params[:list_item] || {})
 
       if list_item.saved?
         list_item.to_json
@@ -112,8 +112,6 @@ module Todo
         status 404
         list_item.h_errors.to_json
       end
-
     end
-
   end
 end

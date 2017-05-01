@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Todo
   module Models
     class ListItem
@@ -14,9 +15,8 @@ module Todo
       validates_presence_of :description
 
       def h_errors
-        { errors: self.errors.to_hash }
+        { errors: errors.to_hash }
       end
-
     end
   end
 end

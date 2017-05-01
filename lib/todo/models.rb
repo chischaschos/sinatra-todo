@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 module Todo
   module Models
-
     require 'todo/models/user'
     require 'todo/models/session'
     require 'todo/models/list_item'

@@ -1,12 +1,13 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
 ruby '2.3.1'
 
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
-gem 'rake'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rake'
 gem 'sinatra'
 
 group 'development' do
@@ -23,5 +24,6 @@ group :test do
   gem 'database_cleaner'
   gem 'json_spec'
   gem 'rspec'
+  gem 'rspec-collection_matchers'
   gem 'simplecov'
 end
