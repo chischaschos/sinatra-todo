@@ -45,7 +45,7 @@ module Todo
     end
 
     post '/api/session', auth_required: false do
-      session = Services::SessionCreator.new(params[:user])
+      session = Services::SessionCreator.new(params[:user][:email], params[:user][:password])
 
       if session.valid?
         cookie_params = {

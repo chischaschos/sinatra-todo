@@ -10,7 +10,7 @@ describe Todo::Services::SessionCreator do
 
   context 'when the requested user does not exists' do
     it 'should not create a session' do
-      session_creator = Todo::Services::SessionCreator.new wrong_params
+      session_creator = Todo::Services::SessionCreator.new(wrong_params[:email], wrong_params[:password])
       expect(session_creator).not_to be_valid
       expect(session_creator.access_token).to be_nil
       expect(session_creator.errors).not_to be_empty
@@ -19,7 +19,7 @@ describe Todo::Services::SessionCreator do
 
   context 'when a session does not exists yet' do
     it 'should create a session' do
-      session_creator = Todo::Services::SessionCreator.new params
+      session_creator = Todo::Services::SessionCreator.new(params[:email], params[:password])
       expect(session_creator).to be_valid
       expect(session_creator.access_token).not_to be_nil
       expect(session_creator.errors).to be_empty
@@ -29,13 +29,13 @@ describe Todo::Services::SessionCreator do
   context 'when a session already exists' do
     let!(:previous_access_token) do
       Todo::Models::User.create(params)
-      session_creator = Todo::Services::SessionCreator.new(params)
+      session_creator = Todo::Services::SessionCreator.new(params[:email], params[:password])
       expect(session_creator).to be_valid
       session_creator.access_token
     end
 
     it 'should create a new session' do
-      session_creator = Todo::Services::SessionCreator.new params
+      session_creator = Todo::Services::SessionCreator.new(params[:email], params[:password])
       expect(session_creator).to be_valid
       expect(session_creator.access_token).not_to be_nil
       expect(session_creator.access_token).not_to eq previous_access_token

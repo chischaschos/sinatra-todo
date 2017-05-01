@@ -20,7 +20,7 @@ describe 'Sessions API', api: true do
 
     context 'when a session already exists' do
       let!(:previous_access_token) do
-        session_creator = Todo::Services::SessionCreator.new(params)
+        session_creator = Todo::Services::SessionCreator.new(params[:email], params[:password])
         expect(session_creator).to be_valid
         session_creator.access_token
       end
@@ -39,7 +39,7 @@ describe 'Sessions API', api: true do
 
   context 'when destroying sessions' do
     context 'when a session already exists' do
-      let!(:session) { Todo::Services::SessionCreator.new(params) }
+      let!(:session) { Todo::Services::SessionCreator.new(params[:email], params[:password]) }
 
       it 'should allow a client to destroy a user session' do
         expect(session).to be_valid
@@ -57,7 +57,7 @@ describe 'Sessions API', api: true do
   end
 
   context 'when retrieving the existing session' do
-    let!(:session) { Todo::Services::SessionCreator.new(params) }
+    let!(:session) { Todo::Services::SessionCreator.new(params[:email], params[:password]) }
 
     it 'should success' do
       expect(session).to be_valid

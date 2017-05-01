@@ -7,7 +7,7 @@ describe 'Todos API', api: true do
   let!(:user) { Todo::Models::User.create user_params }
 
   let!(:access_token) do
-    session_creator = Todo::Services::SessionCreator.new(user_params)
+    session_creator = Todo::Services::SessionCreator.new(user_params[:email], user_params[:password])
     expect(session_creator).to be_valid
     session_creator.access_token
   end

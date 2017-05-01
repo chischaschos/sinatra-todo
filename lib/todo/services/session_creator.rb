@@ -4,10 +4,9 @@ module Todo
     class SessionCreator
       attr_reader :errors, :access_token
 
-      # TODO: we don't need every parameter, only pass the required ones
-      def initialize(params)
-        @params = params
-        @result = nil
+      def initialize(email, password)
+        @email = email
+        @password = password
         @errors = {}
       end
 
@@ -24,11 +23,10 @@ module Todo
       private
 
       def user
-        unless @user
-          user = Todo::Models::User.first(email: @params[:email])
-          @user = user if user.password == @params[:password]
-        end
+        return @user if @user
 
+        user = Todo::Models::User.first(email: @email)
+        @user = user if user.password == @password
         @user
       end
 
