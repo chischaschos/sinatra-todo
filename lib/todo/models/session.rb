@@ -5,6 +5,7 @@ module Todo
   module Models
     class Session
       include DataMapper::Resource
+      include Errors
 
       property :access_token, String
 
@@ -18,10 +19,6 @@ module Todo
 
       def to_json
         { access_token: access_token }.to_json
-      end
-
-      def h_errors
-        { errors: errors.to_hash }
       end
     end
   end

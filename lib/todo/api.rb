@@ -36,7 +36,7 @@ module Todo
 
       else
         status 404
-        user.h_errors.to_json
+        user.error_messages.to_json
       end
     end
 
@@ -57,14 +57,14 @@ module Todo
 
       else
         status 404
-        session.h_errors.to_json
+        session.error_messages.to_json
       end
     end
 
     delete '/api/session', auth_required: true do
       if !@session || @session && !@session.destroy
         status 404
-        @session.h_errors.to_json
+        @session.error_messages.to_json
       end
     end
 
@@ -89,7 +89,7 @@ module Todo
         list_item.to_json
       else
         status 404
-        list_item.h_errors.to_json
+        list_item.error_messages.to_json
       end
     end
 
@@ -101,7 +101,7 @@ module Todo
         list_item.to_json
       else
         status 404
-        list_item.h_errors.to_json
+        list_item.error_messages.to_json
       end
     end
 
@@ -110,7 +110,7 @@ module Todo
 
       if !list_item || !list_item.destroy
         status 404
-        list_item.h_errors.to_json
+        list_item.error_messages.to_json
       end
     end
   end

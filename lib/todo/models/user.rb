@@ -6,6 +6,7 @@ module Todo
     class User
       include DataMapper::Resource
       include BCrypt
+      include Errors
 
       property :id,             Serial
       property :email,          String
@@ -39,10 +40,6 @@ module Todo
 
       def to_json
         { id: id }.to_json
-      end
-
-      def h_errors
-        { errors: errors.to_hash }
       end
 
       private

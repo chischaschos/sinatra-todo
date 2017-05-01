@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# frozen_string_literal: true require 'spec_helper'
+require 'spec_helper'
 
 describe 'Todos API', api: true do
   let(:user_params) { { email: 'test@test.com', password: '123test123' } }

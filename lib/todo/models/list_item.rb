@@ -3,6 +3,7 @@ module Todo
   module Models
     class ListItem
       include DataMapper::Resource
+      include Errors
 
       property :id,           Serial
       property :description,  String
@@ -13,10 +14,6 @@ module Todo
       belongs_to :user, 'Todo::Models::User'
 
       validates_presence_of :description
-
-      def h_errors
-        { errors: errors.to_hash }
-      end
     end
   end
 end

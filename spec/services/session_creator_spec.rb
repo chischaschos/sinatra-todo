@@ -13,7 +13,7 @@ describe Todo::Services::SessionCreator do
       session_creator = Todo::Services::SessionCreator.new wrong_params
       expect(session_creator).not_to be_valid
       expect(session_creator.access_token).to be_nil
-      expect(session_creator.h_errors[:errors]).not_to be_empty
+      expect(session_creator.errors).not_to be_empty
     end
   end
 
@@ -22,7 +22,7 @@ describe Todo::Services::SessionCreator do
       session_creator = Todo::Services::SessionCreator.new params
       expect(session_creator).to be_valid
       expect(session_creator.access_token).not_to be_nil
-      expect(session_creator.h_errors[:errors]).to be_empty
+      expect(session_creator.errors).to be_empty
     end
   end
 
@@ -39,7 +39,7 @@ describe Todo::Services::SessionCreator do
       expect(session_creator).to be_valid
       expect(session_creator.access_token).not_to be_nil
       expect(session_creator.access_token).not_to eq previous_access_token
-      expect(session_creator.h_errors[:errors]).to be_empty
+      expect(session_creator.errors).to be_empty
     end
   end
 end
