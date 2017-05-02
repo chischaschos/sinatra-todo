@@ -3,3 +3,4 @@ capybara*
 log/*
 db/*
 coverage
+tags

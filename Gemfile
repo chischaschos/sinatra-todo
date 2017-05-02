@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'data_mapper'
-gem 'dm-sqlite-adapter'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rake'
@@ -15,6 +14,7 @@ group 'development' do
 end
 
 group :development, :test do
+  gem 'dm-sqlite-adapter'
   gem 'pry-byebug'
 end
 
@@ -26,4 +26,9 @@ group :test do
   gem 'rspec'
   gem 'rspec-collection_matchers'
   gem 'simplecov'
+end
+
+group :production do
+  gem 'dm-postgres-adapter'
+  gem 'pg'
 end
