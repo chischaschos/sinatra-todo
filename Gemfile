@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.5.3'
 
 gem 'data_mapper'
 gem 'rack-contrib'
@@ -16,11 +17,10 @@ end
 group :development, :test do
   gem 'dm-sqlite-adapter'
   gem 'pry-byebug'
+  gem 'rack-test'
 end
 
 group :test do
-  gem 'capybara-webkit'
-  gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner'
   gem 'json_spec'
   gem 'rspec'
